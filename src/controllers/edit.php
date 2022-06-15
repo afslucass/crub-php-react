@@ -1,4 +1,5 @@
 <?php 
+  require_once '../db/connect.php';
   require_once '../db/repositories/clients.php';
   require_once '../db/repositories/address.php';
   require_once '../../responseCode.php';
@@ -35,8 +36,11 @@
   }
 
   try {
-    updateClient($id, $name, $cpf, $rg, $cellphone, $bornAt, $address);
-    putAddressByClientId($id, $address);
+    $clientsRepository = new ClientsRepository($connector);
+    $addressRepository = new AddressRepository($connector);
+    
+    $clientsRepository->updateClient($id, $name, $cpf, $rg, $cellphone, $bornAt, $address);
+    $addressRepository->putAddressByClientId($id, $address);
 
   } catch (Exception $err) {
     http_response_code(500);

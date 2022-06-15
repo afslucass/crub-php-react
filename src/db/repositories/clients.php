@@ -1,75 +1,73 @@
 <?php require_once '../models/client.php';
   require_once '../models/address.php';
   
-  function createClient($name, $cpf, $rg, $cellphone, $bornAt, $address) {
-    require '../db/connect.php';
+  class ClientsRepository {
+    private $connector;
     
-    $sql = "INSERT INTO clients(name, cpf, rg, cellphone, bornAt) VALUES (:name, :cpf, :rg, :cellphone, :bornAt)";
-    $stmt = $connector->prepare($sql);
-    $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':cpf', $cpf);
-    $stmt->bindParam(':rg', $rg);
-    $stmt->bindParam(':cellphone', $cellphone);
-    $stmt->bindParam(':bornAt', $bornAt);
-
-    $stmt->execute();
-    $newid = $connector->lastInsertId();
-
-    return $newid;
-  }
-
-  function deleteById($id) {
-    require '../db/connect.php';
-
-    $sql = "DELETE FROM clients WHERE id=:id";
-    $stmt = $connector->prepare($sql);
-    $stmt->bindParam(':id', $id);
-    $stmt->execute();
-  }
-
-  function getClientById($id) {
-    require '../db/connect.php';
-
-    $sql = "SELECT * FROM clients WHERE id=:id";
-    $stmt = $connector->prepare($sql);
-    $stmt->bindParam(':id', $id);
-    $stmt->execute();
-
-    $client = [];
-    while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-      array_push($client, new Client($result['id'], $result['name'], $result['bornAt'], $result['cpf'], $result['rg'], $result['cellphone'], null));
+    function __construct($connector)
+    {
+      $this->connector = $connector;
     }
 
-    return $client;
-  }
-
-  function updateClient($id, $name, $cpf, $rg, $cellphone, $bornAt, $address) {
-    require '../db/connect.php';
-    
-    $sql = "UPDATE clients SET name=:name, cpf=:cpf, rg=:rg, cellphone=:cellphone, bornAt=:bornAt WHERE id=:id";
-    $stmt = $connector->prepare($sql);
-    $stmt->bindParam(':id', $id);
-    $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':cpf', $cpf);
-    $stmt->bindParam(':rg', $rg);
-    $stmt->bindParam(':cellphone', $cellphone);
-    $stmt->bindParam(':bornAt', $bornAt);
-    $stmt->execute();
-  }
-
-  function getAllClients() {
-    require '../db/connect.php';
-
-    $sql = "SELECT * FROM clients";
-    $stmt = $connector->prepare($sql);
-    $stmt->execute();
-
-    $rows = [];
-    while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-      array_push($rows, new Client($result['id'], $result['name'], $result['bornAt'], $result['cpf'], $result['rg'], $result['cellphone'], null));
-    }
-
-    return $rows;
-  }
+    public function createClient($name, $cpf, $rg, $cellphone, $bornAt, $address) {
+      $sql = "INSERT INTO clients(name, cpf, rg, cellphone, bornAt) VALUES (:name, :cpf, :rg, :cellphone, :bornAt)";
+      $stmt = $this->connector->prepare($sql);
+      $stmt->bindParam(':name', $name);
+      $stmt->bindParam(':cpf', $cpf);
+      $stmt->bindParam(':rg', $rg);
+      $stmt->bindParam(':cellphone', $cellphone);
+      $stmt->bindParam(':bornAt', $bornAt);
   
+      $stmt->execute();
+      $newid = $this->connector->lastInsertId();
+  
+      return $newid;
+    }
+  
+    public function deleteById($id) {
+      $sql = "DELETE FROM clients WHERE id=:id";
+      $stmt = $this->connector->prepare($sql);
+      $stmt->bindParam(':id', $id);
+      $stmt->execute();
+    }
+  
+    public function getClientById($id) {
+      $sql = "SELECT * FROM clients WHERE id=:id";
+      $stmt = $this->connector->prepare($sql);
+      $stmt->bindParam(':id', $id);
+      $stmt->execute();
+  
+      $client = [];
+      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        array_push($client, new Client($result['id'], $result['name'], $result['bornAt'], $result['cpf'], $result['rg'], $result['cellphone'], null));
+      }
+  
+      return $client;
+    }
+  
+    public function updateClient($id, $name, $cpf, $rg, $cellphone, $bornAt, $address) {
+      $sql = "UPDATE clients SET name=:name, cpf=:cpf, rg=:rg, cellphone=:cellphone, bornAt=:bornAt WHERE id=:id";
+      $stmt = $this->connector->prepare($sql);
+      $stmt->bindParam(':id', $id);
+      $stmt->bindParam(':name', $name);
+      $stmt->bindParam(':cpf', $cpf);
+      $stmt->bindParam(':rg', $rg);
+      $stmt->bindParam(':cellphone', $cellphone);
+      $stmt->bindParam(':bornAt', $bornAt);
+      $stmt->execute();
+    }
+  
+    public function getAllClients() {
+      $sql = "SELECT * FROM clients";
+      $stmt = $this->connector->prepare($sql);
+      $stmt->execute();
+  
+      $rows = [];
+      while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        array_push($rows, new Client($result['id'], $result['name'], $result['bornAt'], $result['cpf'], $result['rg'], $result['cellphone'], null));
+      }
+      
+      return $rows;
+    }
+  }  
 ?>

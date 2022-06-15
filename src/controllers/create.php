@@ -1,4 +1,5 @@
 <?php 
+  require_once '../db/connect.php';
   require_once '../db/repositories/clients.php';
   require_once '../db/repositories/address.php';
   require_once '../../responseCode.php';
@@ -33,8 +34,11 @@
   }
 
   try {
-    $clientId = createClient($name, $cpf, $rg, $cellphone, $bornAt, $address);
-    createAddressByClientId($clientId, $address);
+    $clientsRepository = new ClientsRepository($connector);
+    $addressRepository = new AddressRepository($connector);
+    
+    $clientId = $clientsRepository->createClient($name, $cpf, $rg, $cellphone, $bornAt, $address);
+    $addressRepository->createAddressByClientId($clientId, $address);
   } catch (Exception $err) {
     http_response_code(500);
     echo GENERIC_ERROR;

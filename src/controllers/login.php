@@ -1,4 +1,5 @@
-<?php 
+<?php
+  require_once '../db/connect.php';
   require_once '../db/repositories/auth.php';
   require_once '../utils/jwt.php';
   require_once '../../responseCode.php';
@@ -20,7 +21,8 @@
     $login = $data->login;
     $password = $data->password;
 
-    $user = getUserByLogin(($login));
+    $authRepository = new AuthRepository($connector);
+    $user = $authRepository->getUserByLogin($login);
 
     if(count($user) === 0) {
       http_response_code(400);

@@ -1,4 +1,5 @@
-<?php 
+<?php
+  require_once '../db/connect.php';
   require_once '../db/repositories/clients.php';
   require_once '../../responseCode.php';
   require_once '../middlewares/authenticate.php';
@@ -13,7 +14,9 @@
   $id = $_REQUEST["id"];
   
   try {
-    deleteById($id);
+    $clientsRepository = new ClientsRepository($connector);
+    $clientsRepository->deleteById($id);
+    
   } catch (Exception $err) {
     http_response_code(500);
     echo GENERIC_ERROR;
