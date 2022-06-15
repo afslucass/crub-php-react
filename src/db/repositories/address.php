@@ -1,7 +1,7 @@
 <?php require_once '../models/address.php';
 
   function createAddressByClientId($clientId, $address) {
-    require_once '../db/connect.php';
+    require '../db/connect.php';
 
     if(count($address) > 0) {
       foreach($address as $row) {
@@ -20,7 +20,7 @@
   }
 
   function putAddressByClientId($clientId, $address) {
-    require_once '../db/connect.php';
+    require '../db/connect.php';
 
     $sql = "DELETE FROM address WHERE clientId=:clientId";
     $stmt = $connector->prepare($sql);
@@ -44,7 +44,7 @@
   }
 
   function getAddressByClientId($clientId) {
-    require_once '../db/connect.php';
+    require '../db/connect.php';
 
     $sql = "SELECT * FROM address WHERE clientId=:clientId";
     $stmt = $connector->prepare($sql);

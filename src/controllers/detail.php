@@ -1,7 +1,10 @@
 <?php 
   require_once '../db/repositories/clients.php';
   require_once '../db/repositories/address.php';
-  require_once '../../translates.php';
+  require_once '../../responseCode.php';
+  require_once '../middlewares/authenticate.php';
+
+  auth();
 
   if(!isset($_GET["id"])) {
     echo 'EMPTY_VALUES';

@@ -4,4 +4,6 @@
     define('USER', 'root');
     define('PASSWORD', null);
     define('NAME', 'kabum');
+    
+    define('JWT_PASSWORD', 'jujuba');
 ?>
