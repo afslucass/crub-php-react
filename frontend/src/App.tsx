@@ -1,23 +1,17 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Details from "./pages/Details";
+import Login from "./pages/Login";
+import Report from "./pages/Report";
 import "./styles/index.sass";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/clients" element={<Report />} />
+      <Route path="/clients/:id" element={<Details />} />
+    </Routes>
   );
 }
 
