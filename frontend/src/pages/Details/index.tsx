@@ -16,6 +16,13 @@ import { Link } from "react-router-dom";
 import { Client } from "../../types/models";
 import { getAddressByCEP } from "../../actions/clients";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
+import {
+  MaskCellphone,
+  MaskCEP,
+  MaskCPF,
+  MaskRG,
+  unMask,
+} from "../../utils/masks";
 
 const Details = () => {
   const dispatch = useAppDispatch();
@@ -132,6 +139,10 @@ const Details = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
+  useEffect(() => {
+    console.log(form);
+  }, [form]);
+
   return (
     <div className="details">
       <Nav />
@@ -155,9 +166,10 @@ const Details = () => {
             <Col sm={12}>
               <Form.Item label={"CPF"}>
                 <Input
-                  value={form.cpf ?? ""}
+                  value={MaskCPF(form.cpf ?? "")}
                   onChange={(event) =>
-                    handleFormChange("cpf", event.target.value)
+                    event.target.value.length <= 14 &&
+                    handleFormChange("cpf", unMask(event.target.value))
                   }
                 />
               </Form.Item>
@@ -165,9 +177,10 @@ const Details = () => {
             <Col sm={12}>
               <Form.Item label={"RG"}>
                 <Input
-                  value={form.rg ?? ""}
+                  value={MaskRG(form.rg ?? "")}
                   onChange={(event) =>
-                    handleFormChange("rg", event.target.value)
+                    event.target.value.length <= 19 &&
+                    handleFormChange("rg", unMask(event.target.value))
                   }
                 />
               </Form.Item>
@@ -188,9 +201,10 @@ const Details = () => {
             <Col sm={8}>
               <Form.Item label={"Telefone"}>
                 <Input
-                  value={form.cellphone ?? ""}
+                  value={MaskCellphone(form.cellphone ?? "")}
                   onChange={(event) =>
-                    handleFormChange("cellphone", event.target.value)
+                    event.target.value.length <= 16 &&
+                    handleFormChange("cellphone", unMask(event.target.value))
                   }
                 />
               </Form.Item>
@@ -201,6 +215,7 @@ const Details = () => {
 
           {form.address?.map((addressProps, index) => (
             <Card
+              key={index}
               title={"Endereço"}
               extra={
                 <DeleteOutlined
@@ -214,11 +229,17 @@ const Details = () => {
                 <Col sm={8}>
                   <Form.Item label={"CEP"}>
                     <Input
-                      value={addressProps.cep ?? ""}
+                      value={MaskCEP(addressProps.cep ?? "")}
                       onChange={(event) => {
-                        handleFormChange("cep", event.target.value, index);
-                        if (event.target.value.length >= 8) {
-                          handleGetAddress(event.target.value, index);
+                        if (event.target.value.length <= 9) {
+                          handleFormChange(
+                            "cep",
+                            unMask(event.target.value),
+                            index
+                          );
+                          if (event.target.value.length >= 9) {
+                            handleGetAddress(event.target.value, index);
+                          }
                         }
                       }}
                     />
