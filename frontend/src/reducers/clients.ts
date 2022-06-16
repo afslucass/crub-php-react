@@ -1,9 +1,10 @@
-import { CLIENTS_LIST, CLIENT_DETAILS } from "../types/actionTypes";
+import { ADDRESS, CLIENTS_LIST, CLIENT_DETAILS } from "../types/actionTypes";
 import { ClientReducer } from "../types/reducers";
 
 const initialState: ClientReducer = {
   clientList: [],
   clientDetails: null,
+  address: null,
 };
 
 const clientReducer = (state = initialState, action: any) => {
@@ -19,6 +20,13 @@ const clientReducer = (state = initialState, action: any) => {
       state = {
         ...state,
         clientDetails: action.payload,
+      };
+      break;
+
+    case ADDRESS:
+      state = {
+        ...state,
+        address: action.payload,
       };
       break;
 
