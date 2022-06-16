@@ -7,11 +7,13 @@ import "./styles/index.sass";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/clients" element={<Report />} />
-      <Route path="/clients/:id" element={<Details />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/clients" element={<Report />} />
+        <Route path="/clients/:id" element={<Details />} />
+      </Routes>
+    </>
   );
 }
 

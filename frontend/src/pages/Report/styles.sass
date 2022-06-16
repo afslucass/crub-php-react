@@ -1,0 +1,32 @@
+.report
+  padding: 32px
+
+  &__content
+    background-color: $white
+    width: 100%
+
+    margin-top: 32px
+    padding: 32px
+
+    border-radius: 4px
+
+    &__actions
+      margin-bottom: 32px
+
+      &__create-client-button
+        &:hover
+          border-color: $green
+          color: $green
+
+    &__table
+      &__edit
+        &:hover
+          cursor: pointer
+          color: $blue
+          transition-duration: 0.2s
+
+      &__delete
+        &:hover
+          cursor: pointer
+          color: $red
+          transition-duration: 0.2s
