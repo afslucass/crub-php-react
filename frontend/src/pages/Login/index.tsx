@@ -1,5 +1,5 @@
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Input, Row } from "antd";
+import { Button, Input, message, Row } from "antd";
 import React from "react";
 
 const Login = () => {
@@ -19,7 +19,11 @@ const Login = () => {
 
         <Row justify="space-between">
           <Button>Entrar</Button>
-          <Button type="link" style={{ padding: 0, margin: 0 }}>
+          <Button
+            onClick={() => message.success("Login: root, senha: 123123 :)")}
+            type="link"
+            style={{ padding: 0, margin: 0 }}
+          >
             Esqueceu a senha?
           </Button>
         </Row>

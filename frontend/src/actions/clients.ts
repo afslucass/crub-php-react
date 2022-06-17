@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { AppDispatch } from "../reducers/store";
 import ClientsAPI from "../repositories/clients";
 import { ADDRESS } from "../types/actionTypes";
@@ -20,7 +21,7 @@ export const getAddressByCEP =
       });
     } catch (err) {
       if (err instanceof Error) {
-        console.log(err);
+        message.error("Ocorreu um erro ao buscar o cep.");
       }
     }
   };
