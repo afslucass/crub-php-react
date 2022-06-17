@@ -1,3 +1,4 @@
+import { AnyAction } from "redux";
 import { ADDRESS, CLIENTS_LIST, CLIENT_DETAILS } from "../types/actionTypes";
 import { ClientReducer } from "../types/reducers";
 
@@ -7,28 +8,28 @@ const initialState: ClientReducer = {
   address: null,
 };
 
-const clientReducer = (state = initialState, action: any) => {
+const clientReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case CLIENTS_LIST:
       state = {
         ...state,
         clientList: action.payload,
       };
-      break;
+      return state;
 
     case CLIENT_DETAILS:
       state = {
         ...state,
         clientDetails: action.payload,
       };
-      break;
+      return state;
 
     case ADDRESS:
       state = {
         ...state,
         address: action.payload,
       };
-      break;
+      return state;
 
     default:
       return state;

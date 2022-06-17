@@ -139,10 +139,6 @@ const Details = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
-
   return (
     <div className="details">
       <Nav />
