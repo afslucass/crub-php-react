@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Row, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import Nav from "../../components/Nav";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
+import { deleteClient, getClients } from "../../actions/clients";
 
 const Report = () => {
+  const clients = useAppSelector((store) => store.client.clientList);
+
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleRedirectToCreate = () => navigate("add");
+  const handleRedirectToCreate = () =>
+    navigate("add", { state: { mode: "create" } });
+  const handleRedirectToDetails = (id: string) =>
+    navigate(id, { state: { mode: "edit" } });
+
+  const handleDelete = (id: string) => {
+    dispatch(deleteClient(id));
+  };
+
+  useEffect(() => {
+    dispatch(getClients());
+  }, [dispatch]);
 
   return (
     <div className="report">
@@ -55,8 +71,11 @@ const Report = () => {
               key: "edit",
               align: "center",
               width: "5%",
-              render: () => (
-                <EditOutlined className="report__content__table__edit" />
+              render: (_value, row) => (
+                <EditOutlined
+                  onClick={() => row.id && handleRedirectToDetails(row.id)}
+                  className="report__content__table__edit"
+                />
               ),
             },
             {
@@ -64,26 +83,15 @@ const Report = () => {
               key: "delete",
               align: "center",
               width: "5%",
-              render: () => (
-                <DeleteOutlined className="report__content__table__delete" />
+              render: (_value, row) => (
+                <DeleteOutlined
+                  onClick={() => row.id && handleDelete(row.id)}
+                  className="report__content__table__delete"
+                />
               ),
             },
           ]}
-          dataSource={[
-            {
-              id: "id",
-              name: "Lucas",
-            },
-            {
-              name: "Ana",
-            },
-            {
-              name: "Maria",
-            },
-            {
-              name: "Maria",
-            },
-          ]}
+          dataSource={clients}
           pagination={{ pageSize: 4 }}
           bordered
         />

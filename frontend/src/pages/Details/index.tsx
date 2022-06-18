@@ -12,9 +12,14 @@ import {
 } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import Nav from "../../components/Nav";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { Client } from "../../types/models";
-import { getAddressByCEP } from "../../actions/clients";
+import {
+  createClient,
+  getAddressByCEP,
+  getClientDetails,
+  putClient,
+} from "../../actions/clients";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import {
   MaskCellphone,
@@ -23,10 +28,16 @@ import {
   MaskRG,
   unMask,
 } from "../../utils/masks";
+import moment from "moment";
 
 const Details = () => {
   const dispatch = useAppDispatch();
+  const client = useAppSelector((state) => state.client?.clientDetails);
   const address = useAppSelector((state) => state.client?.address);
+
+  const params = useParams();
+  const location = useLocation();
+  const pageState = location.state as { mode: "create" | "edit" };
 
   const [form, setForm] = useState<Client>({
     id: null,
@@ -38,6 +49,14 @@ const Details = () => {
     address: [],
   });
   const [addressCallIndex, setAddressCallIndex] = useState<number | null>(null);
+
+  const handleSubmit = () => {
+    if (pageState.mode === "create") {
+      dispatch(createClient(form));
+    } else if (client?.id) {
+      dispatch(putClient(client.id, form));
+    }
+  };
 
   const handleAddAddress = () => {
     setForm((prev) => ({
@@ -126,6 +145,20 @@ const Details = () => {
     dispatch(getAddressByCEP(cep));
     setAddressCallIndex(index);
   };
+
+  useEffect(() => {
+    if (params.id && pageState.mode === "edit") {
+      dispatch(getClientDetails(params.id));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageState]);
+
+  useEffect(() => {
+    if (client && pageState.mode === "edit") {
+      setForm({ ...client, bornAt: moment(client.bornAt) });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [client]);
 
   useEffect(() => {
     if (address && form.address) {
@@ -300,7 +333,9 @@ const Details = () => {
           <Divider />
 
           <Row justify="end" className="details__content__form__actions">
-            <Button disabled={!isFormCompleted()}>Enviar</Button>
+            <Button disabled={!isFormCompleted()} onClick={handleSubmit}>
+              Enviar
+            </Button>
             <Button onClick={handleCleanForm} danger>
               Limpar
             </Button>

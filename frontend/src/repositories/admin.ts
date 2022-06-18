@@ -1,25 +1,17 @@
+import Api from "../utils/request";
+
 const AdminAPI = {
   login: async (login: string, password: string) => {
-    const body = JSON.stringify({
+    const body = {
       login,
       password,
-    });
+    };
 
-    const req = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-      },
-      body,
-    });
-
-    const data = await req.json();
-
-    if (!req.ok) {
-      throw new Error(data.message);
-    }
+    const data = Api.cleanRequest(
+      "POST",
+      `${process.env.REACT_APP_API_URL}/login`,
+      body
+    );
 
     return data;
   },

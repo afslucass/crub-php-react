@@ -48,4 +48,6 @@
     http_response_code(500);
     echo GENERIC_ERROR;
   }
+
+  echo '{}';
 ?>

@@ -22,7 +22,7 @@
     $addressRepository = new AddressRepository($connector);
     
     $rows = $clientsRepository->getClientById($id);
-    $rows[0]->addresses = $addressRepository->getAddressByClientId($rows[0]->id);
+    $rows[0]->address = $addressRepository->getAddressByClientId($rows[0]->id);
   } catch (Exception $err) {
     http_response_code(500);
     echo GENERIC_ERROR;
@@ -31,5 +31,5 @@
   }
 
   header('Content-Type: application/json; charset=utf-8');
-  echo json_encode($rows);
+  echo json_encode($rows[0]);
 ?>

@@ -9,7 +9,7 @@
   auth();
   
   if(!isset($_REQUEST["id"])) {
-    echo 'EMPTY_VALUES';
+    echo getErrorResponse(EMPTY_VALUES);
     return;
   }
   
@@ -21,7 +21,9 @@
     
   } catch (Exception $err) {
     http_response_code(500);
-    echo GENERIC_ERROR;
+    echo getErrorResponse(GENERIC_ERROR);
   }
+
+  echo '{}';
 
 ?>

@@ -46,4 +46,6 @@
     echo GENERIC_ERROR;
   }
 
+  echo '{}';
+
 ?>
