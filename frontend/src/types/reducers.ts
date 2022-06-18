@@ -5,3 +5,7 @@ export type ClientReducer = {
   clientDetails: Client | null;
   address: Address | null;
 };
+
+export type AdminReducer = {
+  name: string | null;
+};
