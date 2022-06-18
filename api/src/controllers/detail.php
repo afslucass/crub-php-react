@@ -5,6 +5,7 @@
   require_once '../../responseCode.php';
   require_once '../middlewares/authenticate.php';
   require_once '../middlewares/cors.php';
+  require_once '../utils/errorResponse.php';
 
   cors();
   auth();
@@ -25,7 +26,7 @@
     $rows[0]->address = $addressRepository->getAddressByClientId($rows[0]->id);
   } catch (Exception $err) {
     http_response_code(500);
-    echo GENERIC_ERROR;
+    echo getErrorResponse(GENERIC_ERROR);
     
     return;
   }

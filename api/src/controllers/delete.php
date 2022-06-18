@@ -4,6 +4,7 @@
   require_once '../../responseCode.php';
   require_once '../middlewares/authenticate.php';
   require_once '../middlewares/cors.php';
+  require_once '../utils/errorResponse.php';
 
   cors();
   auth();

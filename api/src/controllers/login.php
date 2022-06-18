@@ -64,6 +64,6 @@
 
   } catch (Exception $err) {
     http_response_code(500);
-    echo GENERIC_ERROR;
+    echo getErrorResponse(GENERIC_ERROR);
   }
 ?>

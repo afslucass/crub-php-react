@@ -5,6 +5,7 @@
   require_once '../../responseCode.php';
   require_once '../middlewares/authenticate.php';
   require_once '../middlewares/cors.php';
+  require_once '../utils/errorResponse.php';
 
   cors();
   auth();
@@ -21,7 +22,7 @@
     !isset($data->cellphone) or
     !isset($data->bornAt) 
   ) {
-    echo EMPTY_VALUES;
+    echo getErrorResponse(EMPTY_VALUES);
     return;
   }
   
@@ -46,7 +47,7 @@
 
   } catch (Exception $err) {
     http_response_code(500);
-    echo GENERIC_ERROR;
+    echo getErrorResponse(GENERIC_ERROR);
   }
 
   echo '{}';
