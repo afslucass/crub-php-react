@@ -31,5 +31,5 @@ export const logout = () => (dispatch: AppDispatch) => {
     payload: null,
   });
 
-  window.location.assign("/clients");
+  window.location.assign("/");
 };

@@ -1,10 +1,22 @@
 import React from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Button, Popover } from "antd";
+import { useAppDispatch } from "../../reducers/hooks";
+import { logout } from "../../actions/admin";
 
-const UserMenu = () => (
-  <Button className="nav__icon__menu-actions">Sair</Button>
-);
+const UserMenu = () => {
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
+  return (
+    <Button className="nav__icon__menu-actions" onClick={handleLogout}>
+      Sair
+    </Button>
+  );
+};
 
 const Nav = () => {
   return (
