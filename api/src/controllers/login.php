@@ -2,6 +2,7 @@
   require_once '../db/connect.php';
   require_once '../db/repositories/auth.php';
   require_once '../utils/jwt.php';
+  require_once '../utils/errorResponse.php';
   require_once '../../responseCode.php';
   require_once '../middlewares/cors.php';
 
@@ -18,7 +19,8 @@
       !isset($data->password)
     ) {
       http_response_code(400);
-      echo EMPTY_VALUES;
+      echo getErrorResponse(EMPTY_VALUES);
+      
       return;
     }
     
@@ -30,13 +32,15 @@
 
     if(count($user) === 0) {
       http_response_code(400);
-      echo USER_NOT_EXISTS;
+      echo getErrorResponse(USER_NOT_EXISTS);
+
       return; 
     }
 
     if(hash('sha256' ,$password) !== $user[0]->password) {
       http_response_code(400);
-      echo PASSWORD_WRONG;
+      echo getErrorResponse(PASSWORD_WRONG);
+
       return; 
     }
 
