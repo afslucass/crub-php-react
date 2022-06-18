@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
-import { Button, Row, Table } from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Modal, Row, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import Nav from "../../components/Nav";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import { deleteClient, getClients } from "../../actions/clients";
+import { MaskCellphone, MaskCPF, MaskRG } from "../../utils/masks";
+import moment from "moment";
 
 const Report = () => {
   const clients = useAppSelector((store) => store.client.clientList);
@@ -12,13 +14,20 @@ const Report = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const [deleteModal, setDeleteModal] = useState({ id: "", visible: false });
+
   const handleRedirectToCreate = () =>
     navigate("add", { state: { mode: "create" } });
   const handleRedirectToDetails = (id: string) =>
     navigate(id, { state: { mode: "edit" } });
 
-  const handleDelete = (id: string) => {
-    dispatch(deleteClient(id));
+  const handleDeleteModalConfirm = () => {
+    dispatch(deleteClient(deleteModal.id));
+    setDeleteModal({ id: "", visible: false });
+  };
+
+  const handleDeleteModalCancel = () => {
+    setDeleteModal({ id: "", visible: false });
   };
 
   useEffect(() => {
@@ -50,21 +59,25 @@ const Report = () => {
               title: "Celular",
               key: "cellphone",
               dataIndex: "cellphone",
+              render: (value) => MaskCellphone(value),
             },
             {
               title: "RG",
               key: "rg",
               dataIndex: "rg",
+              render: (value) => MaskRG(value),
             },
             {
               title: "CPF",
               key: "cpf",
               dataIndex: "cpf",
+              render: (value) => MaskCPF(value),
             },
             {
               title: "Data de nascimento",
               key: "bornAt",
               dataIndex: "bornAt",
+              render: (value) => moment(value).format("DD/MM/YYYY").toString(),
             },
             {
               title: "",
@@ -85,7 +98,9 @@ const Report = () => {
               width: "5%",
               render: (_value, row) => (
                 <DeleteOutlined
-                  onClick={() => row.id && handleDelete(row.id)}
+                  onClick={() =>
+                    row.id && setDeleteModal({ id: row.id, visible: true })
+                  }
                   className="report__content__table__delete"
                 />
               ),
@@ -96,6 +111,17 @@ const Report = () => {
           bordered
         />
       </section>
+
+      <Modal
+        title="Deletar cliente"
+        visible={deleteModal.visible}
+        onOk={handleDeleteModalConfirm}
+        onCancel={handleDeleteModalCancel}
+        okText={"Confirmar"}
+        cancelText={"Cancelar"}
+      >
+        <b>Deseja realmente deletar esse cliente?</b>
+      </Modal>
     </div>
   );
 };
