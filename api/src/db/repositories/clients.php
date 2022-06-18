@@ -58,7 +58,7 @@
     }
   
     public function getAllClients() {
-      $sql = "SELECT * FROM clients";
+      $sql = "SELECT * FROM clients ORDER BY id DESC";
       $stmt = $this->connector->prepare($sql);
       $stmt->execute();
   
