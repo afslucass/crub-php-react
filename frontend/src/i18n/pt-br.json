@@ -1,0 +1,75 @@
+{
+  "TRANSLATE": {
+    "COMPONENTS": {
+      "NAV": {
+        "TITLE": "Kabum",
+        "USER": "Usuário",
+        "EXIT": "Sair"
+      }
+    },
+    "PAGES": {
+      "LOGIN": {
+        "TITLE": "Kabum",
+        "FIELDS": {
+          "LOGIN": "Login",
+          "PASSWORD": "Senha"
+        },
+        "ENTER": "Entrar",
+        "FORGOT_PASSWORD": "Esqueceu a senha?"
+      },
+      "REPORT": {
+        "ADD": "Adicionar cliente",
+        "FIELDS": {
+          "NAME": "Nome",
+          "RG": "RG",
+          "CPF": "CPF",
+          "BORNAT": "Data de nascimento",
+          "CELLPHONE": "Telefone"
+        },
+        "DELETE_MODAL_NAME": "Deletar usuário",
+        "DELETE_MODAL_MESSAGE": "Deseja realmente deletar esse cliente?"
+      },
+      "DETAILS": {
+        "BREADCRUMB": {
+          "REPORT": "Listagem de clientes",
+          "DETAILS_ADD": "Adicionar novo cliente",
+          "DETAILS_EDIT": "Editar cliente"
+        },
+        "FIELDS": {
+          "NAME": "Nome",
+          "RG": "RG",
+          "CPF": "CPF",
+          "BORNAT": "Data de nascimento",
+          "CELLPHONE": "Telefone",
+          "ADDRESS": {
+            "TITLE": "Endereço",
+            "CEP": "CEP",
+            "CIDADE": "Cidade",
+            "LOGRADOURO": "Logradouro",
+            "LOCALIDADE": "Localidade",
+            "BAIRRO": "Bairro",
+            "COMPLEMENTO": "Complemento"
+          }
+        },
+        "BUTTONS": {
+          "ADD_ADDRESS": "Adicionar endereço",
+          "SUBMIT": "Enviar",
+          "CLEAR": "Limpar"
+        }
+      }
+    },
+    "MESSAGES": {
+      "FORGOT_PASSWORD": "Login 'root', senha '123123' :)",
+
+      "GENERIC_ERROR": "Algo de errado não esta certo, é culpa do back",
+      "USER_NOT_EXISTS": "O usuário informado não existe",
+      "PASSWORD_WRONG": "A senha informada está incorreta",
+      "AUTH_ERROR": "Deu algum B.O na autenticação hein",
+      "EMPTY_VALUES": "Preenha todos os valores"
+    },
+    "SHARED": {
+      "CONFIRM": "Confirmar",
+      "CANCEL": "Cancelar"
+    }
+  }
+}

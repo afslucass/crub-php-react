@@ -3,6 +3,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Button, Popover } from "antd";
 import { useAppDispatch } from "../../reducers/hooks";
 import { logout } from "../../actions/admin";
+import translate from "../../utils/translate";
 
 const UserMenu = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +14,7 @@ const UserMenu = () => {
 
   return (
     <Button className="nav__icon__menu-actions" onClick={handleLogout}>
-      Sair
+      {translate("COMPONENTS.NAV.EXIT")}
     </Button>
   );
 };
@@ -21,13 +22,13 @@ const UserMenu = () => {
 const Nav = () => {
   return (
     <div className="nav">
-      <div className="nav__logo">Kabum</div>
+      <div className="nav__logo">{translate("COMPONENTS.NAV.TITLE")}</div>
 
       <Popover
         placement="bottomRight"
         content={<UserMenu />}
         trigger="click"
-        title={"Usuário"}
+        title={translate("COMPONENTS.NAV.USER")}
       >
         <Avatar className="nav__icon" size={50} icon={<UserOutlined />} />
       </Popover>

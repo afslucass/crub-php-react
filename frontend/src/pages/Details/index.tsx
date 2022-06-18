@@ -29,6 +29,7 @@ import {
   unMask,
 } from "../../utils/masks";
 import moment from "moment";
+import translate from "../../utils/translate";
 
 const Details = () => {
   const dispatch = useAppDispatch();
@@ -179,13 +180,19 @@ const Details = () => {
       <section className="details__content">
         <Breadcrumb>
           <Breadcrumb.Item>
-            <Link to="/clients">Listagem de clientes</Link>
+            <Link to="/clients">
+              {translate("PAGES.DETAILS.BREADCRUMB.REPORT")}
+            </Link>
           </Breadcrumb.Item>
-          <Breadcrumb.Item>Detalhes do cliente</Breadcrumb.Item>
+          <Breadcrumb.Item>
+            {pageState.mode === "create"
+              ? translate("PAGES.DETAILS.BREADCRUMB.DETAILS_ADD")
+              : translate("PAGES.DETAILS.BREADCRUMB.DETAILS_EDIT")}
+          </Breadcrumb.Item>
         </Breadcrumb>
 
         <Form layout="vertical" className="details__content__form">
-          <Form.Item label={"Nome"}>
+          <Form.Item label={translate("PAGES.DETAILS.FIELDS.NAME")}>
             <Input
               value={form.name ?? ""}
               onChange={(event) => handleFormChange("name", event.target.value)}
@@ -193,7 +200,7 @@ const Details = () => {
           </Form.Item>
           <Row gutter={12}>
             <Col sm={12}>
-              <Form.Item label={"CPF"}>
+              <Form.Item label={translate("PAGES.DETAILS.FIELDS.CPF")}>
                 <Input
                   value={MaskCPF(form.cpf ?? "")}
                   onChange={(event) =>
@@ -204,7 +211,7 @@ const Details = () => {
               </Form.Item>
             </Col>
             <Col sm={12}>
-              <Form.Item label={"RG"}>
+              <Form.Item label={translate("PAGES.DETAILS.FIELDS.RG")}>
                 <Input
                   value={MaskRG(form.rg ?? "")}
                   onChange={(event) =>
@@ -217,7 +224,7 @@ const Details = () => {
           </Row>
           <Row gutter={12}>
             <Col sm={16}>
-              <Form.Item label={"Data de nascimento"}>
+              <Form.Item label={translate("PAGES.DETAILS.FIELDS.BORNAT")}>
                 <DatePicker
                   style={{ width: "100%" }}
                   value={form.bornAt as moment.Moment}
@@ -228,7 +235,7 @@ const Details = () => {
               </Form.Item>
             </Col>
             <Col sm={8}>
-              <Form.Item label={"Telefone"}>
+              <Form.Item label={translate("PAGES.DETAILS.FIELDS.CELLPHONE")}>
                 <Input
                   value={MaskCellphone(form.cellphone ?? "")}
                   onChange={(event) =>
@@ -245,7 +252,7 @@ const Details = () => {
           {form.address?.map((addressProps, index) => (
             <Card
               key={index}
-              title={"Endereço"}
+              title={translate("PAGES.DETAILS.FIELDS.ADDRESS.TITLE")}
               extra={
                 <DeleteOutlined
                   onClick={() => handleDeleteAddress(index)}
@@ -256,7 +263,9 @@ const Details = () => {
             >
               <Row gutter={12}>
                 <Col sm={8}>
-                  <Form.Item label={"CEP"}>
+                  <Form.Item
+                    label={translate("PAGES.DETAILS.FIELDS.ADDRESS.CEP")}
+                  >
                     <Input
                       value={MaskCEP(addressProps.cep ?? "")}
                       onChange={(event) => {
@@ -275,7 +284,9 @@ const Details = () => {
                   </Form.Item>
                 </Col>
                 <Col sm={16}>
-                  <Form.Item label={"Cidade"}>
+                  <Form.Item
+                    label={translate("PAGES.DETAILS.FIELDS.ADDRESS.CIDADE")}
+                  >
                     <Input
                       value={addressProps.localidade ?? ""}
                       onChange={(event) =>
@@ -291,7 +302,9 @@ const Details = () => {
               </Row>
               <Row gutter={12}>
                 <Col sm={12}>
-                  <Form.Item label={"Bairro"}>
+                  <Form.Item
+                    label={translate("PAGES.DETAILS.FIELDS.ADDRESS.BAIRRO")}
+                  >
                     <Input
                       value={addressProps.bairro ?? ""}
                       onChange={(event) =>
@@ -301,7 +314,9 @@ const Details = () => {
                   </Form.Item>
                 </Col>
                 <Col sm={12}>
-                  <Form.Item label={"Logradouro"}>
+                  <Form.Item
+                    label={translate("PAGES.DETAILS.FIELDS.ADDRESS.LOGRADOURO")}
+                  >
                     <Input
                       value={addressProps.logradouro ?? ""}
                       onChange={(event) =>
@@ -315,7 +330,9 @@ const Details = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              <Form.Item label={"Complemento"}>
+              <Form.Item
+                label={translate("PAGES.DETAILS.FIELDS.ADDRESS.COMPLEMENTO")}
+              >
                 <Input
                   value={addressProps.complemento ?? ""}
                   onChange={(event) =>
@@ -327,17 +344,19 @@ const Details = () => {
           ))}
 
           <Row justify="end">
-            <Button onClick={handleAddAddress}>Adicionar endereço</Button>
+            <Button onClick={handleAddAddress}>
+              {translate("PAGES.DETAILS.BUTTONS.ADD_ADDRESS")}
+            </Button>
           </Row>
 
           <Divider />
 
           <Row justify="end" className="details__content__form__actions">
             <Button disabled={!isFormCompleted()} onClick={handleSubmit}>
-              Enviar
+              {translate("PAGES.DETAILS.BUTTONS.SUBMIT")}
             </Button>
             <Button onClick={handleCleanForm} danger>
-              Limpar
+              {translate("PAGES.DETAILS.BUTTONS.CLEAR")}
             </Button>
           </Row>
         </Form>

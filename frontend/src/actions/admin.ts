@@ -2,6 +2,7 @@ import { message } from "antd";
 import { AppDispatch } from "../reducers/store";
 import AdminAPI from "../repositories/admin";
 import { LOGIN } from "../types/actionTypes";
+import translate from "../utils/translate";
 
 export const login =
   (login: string, password: string) => async (dispatch: AppDispatch) => {
@@ -18,7 +19,7 @@ export const login =
       window.location.assign("/clients");
     } catch (err) {
       if (err instanceof Error) {
-        message.error(err.message);
+        message.error(translate(`MESSAGES.${err.message}`));
       }
     }
   };

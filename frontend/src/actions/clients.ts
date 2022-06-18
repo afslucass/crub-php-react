@@ -3,6 +3,7 @@ import { AppDispatch } from "../reducers/store";
 import ClientsAPI from "../repositories/clients";
 import { ADDRESS, CLIENTS_LIST, CLIENT_DETAILS } from "../types/actionTypes";
 import { Client } from "../types/models";
+import translate from "../utils/translate";
 
 export const getClients = () => async (dispatch: AppDispatch) => {
   try {
@@ -14,7 +15,7 @@ export const getClients = () => async (dispatch: AppDispatch) => {
     });
   } catch (err) {
     if (err instanceof Error) {
-      message.error("Ocorreu um erro ao buscar do lado do servidor.");
+      message.error(translate(`MESSAGES.${err.message}`));
     }
   }
 };
@@ -29,7 +30,7 @@ export const getClientDetails =
       });
     } catch (err) {
       if (err instanceof Error) {
-        message.error("Ocorreu um erro ao buscar do lado do servidor.");
+        message.error(translate(`MESSAGES.${err.message}`));
       }
     }
   };
@@ -41,7 +42,7 @@ export const createClient =
       message.success("Cliente criado com sucesso.");
     } catch (err) {
       if (err instanceof Error) {
-        message.error("Ocorreu um erro ao buscar do lado do servidor.");
+        message.error(translate(`MESSAGES.${err.message}`));
       }
     }
   };
@@ -53,7 +54,7 @@ export const putClient =
       message.success("Cliente alterado com sucesso.");
     } catch (err) {
       if (err instanceof Error) {
-        message.error("Ocorreu um erro ao buscar do lado do servidor.");
+        message.error(translate(`MESSAGES.${err.message}`));
       }
     }
   };
@@ -65,7 +66,7 @@ export const deleteClient = (id: string) => async (dispatch: AppDispatch) => {
     message.warn("Cliente removido com sucesso.");
   } catch (err) {
     if (err instanceof Error) {
-      message.error(err.message);
+      message.error(translate(`MESSAGES.${err.message}`));
     }
   }
 };
@@ -80,7 +81,7 @@ export const getAddressByCEP =
       });
     } catch (err) {
       if (err instanceof Error) {
-        message.error("Ocorreu um erro ao buscar o cep.");
+        message.error(translate(`MESSAGES.${err.message}`));
       }
     }
   };

@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../reducers/hooks";
 import { deleteClient, getClients } from "../../actions/clients";
 import { MaskCellphone, MaskCPF, MaskRG } from "../../utils/masks";
 import moment from "moment";
+import translate from "../../utils/translate";
 
 const Report = () => {
   const clients = useAppSelector((store) => store.client.clientList);
@@ -44,37 +45,37 @@ const Report = () => {
             onClick={handleRedirectToCreate}
             className="report__content__actions__create-client-button"
           >
-            Adicionar cliente
+            {translate("PAGES.REPORT.ADD")}
           </Button>
         </Row>
 
         <Table
           columns={[
             {
-              title: "Name",
+              title: translate("PAGES.REPORT.FIELDS.NAME"),
               key: "name",
               dataIndex: "name",
             },
             {
-              title: "Celular",
+              title: translate("PAGES.REPORT.FIELDS.CELLPHONE"),
               key: "cellphone",
               dataIndex: "cellphone",
               render: (value) => MaskCellphone(value),
             },
             {
-              title: "RG",
+              title: translate("PAGES.REPORT.FIELDS.RG"),
               key: "rg",
               dataIndex: "rg",
               render: (value) => MaskRG(value),
             },
             {
-              title: "CPF",
+              title: translate("PAGES.REPORT.FIELDS.CPF"),
               key: "cpf",
               dataIndex: "cpf",
               render: (value) => MaskCPF(value),
             },
             {
-              title: "Data de nascimento",
+              title: translate("PAGES.REPORT.FIELDS.BORNAT"),
               key: "bornAt",
               dataIndex: "bornAt",
               render: (value) => moment(value).format("DD/MM/YYYY").toString(),
@@ -113,14 +114,14 @@ const Report = () => {
       </section>
 
       <Modal
-        title="Deletar cliente"
+        title={translate("PAGES.REPORT.DELETE_MODAL_NAME")}
         visible={deleteModal.visible}
         onOk={handleDeleteModalConfirm}
         onCancel={handleDeleteModalCancel}
-        okText={"Confirmar"}
-        cancelText={"Cancelar"}
+        okText={translate("SHARED.CONFIRM")}
+        cancelText={translate("SHARED.CANCEL")}
       >
-        <b>Deseja realmente deletar esse cliente?</b>
+        <b>{translate("PAGES.REPORT.DELETE_MODAL_MESSAGE")}</b>
       </Modal>
     </div>
   );
