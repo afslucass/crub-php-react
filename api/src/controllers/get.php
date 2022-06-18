@@ -5,8 +5,8 @@
   require_once '../middlewares/authenticate.php';
   require_once '../middlewares/cors.php';
   
-  auth();
   cors();
+  auth();
   
   $clientsRepository = new ClientsRepository($connector);
   $rows = $clientsRepository->getAllClients();

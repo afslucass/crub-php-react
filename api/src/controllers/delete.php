@@ -5,8 +5,8 @@
   require_once '../middlewares/authenticate.php';
   require_once '../middlewares/cors.php';
 
-  auth();
   cors();
+  auth();
   
   if(!isset($_REQUEST["id"])) {
     echo 'EMPTY_VALUES';
