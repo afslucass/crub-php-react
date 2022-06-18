@@ -4,8 +4,10 @@
   require_once '../db/repositories/address.php';
   require_once '../../responseCode.php';
   require_once '../middlewares/authenticate.php';
+  require_once '../middlewares/cors.php';
 
   auth();
+  cors();
 
   if(!isset($_GET["id"])) {
     echo 'EMPTY_VALUES';

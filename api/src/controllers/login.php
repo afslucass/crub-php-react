@@ -3,8 +3,12 @@
   require_once '../db/repositories/auth.php';
   require_once '../utils/jwt.php';
   require_once '../../responseCode.php';
+  require_once '../middlewares/cors.php';
 
   try {
+
+    cors();
+    
     header("Content-Type: application/json; charset=UTF-8");
     $json = file_get_contents('php://input');
     $data = json_decode($json);
