@@ -10,7 +10,7 @@
 
 1. Baixe o WampServer https://www.wampserver.com/en/
 2. Entre no diretório raiz da instalação do WampServer (normalmente em C:\wamp64), entre na pasta ./www, crie uma pasta chamada 'kabum' e copie o repositório do projeto para dentro dela.
-3. Inicie o Wamp e faça o login em http://localhost/phpmyadmin
+3. Inicie o Wamp e faça o login em http://localhost/phpmyadmin (talvez login root e nenhuma senha)
 4. Crie um novo banco de dados, conforme a imagem abaixo:
    [![image.png](https://i.postimg.cc/YqZF7nzw/image.png)](https://postimg.cc/Mv0HbYLs)
 5. Com o Banco de dados criado, clique em importar, importe o arquivo que esta em ./api/sql/kabum.sql e clique em executar.
